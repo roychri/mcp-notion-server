@@ -1,25 +1,43 @@
 {
-  "name": "notion",
-  "version": "0.1.0",
-  "description": "A Model Context Protocol server",
-  "private": true,
+  "name": "@roychri/mcp-server-notion",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "description": "A Model Context Protocol server for NOTION",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roychri/mcp-server-notion.git"
+  },
+  "homepage": "https://github.com/roychri/mcp-server-notion?tab=readme-ov-file",
+  "main": "build/index.js",
   "type": "module",
   "bin": {
-    "notion": "./build/index.js"
+    "mcp-server-notion": "./build/index.js"
   },
   "files": [
-    "build"
+    "build",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "prepare": "npm run build",
     "watch": "tsc --watch",
+    "prepublishOnly": "npm run build",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
   },
+  "keywords": [
+    "notion",
+    "mcp",
+    "anthropic"
+  ],
+  "author": "Christian Roy",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "0.6.0"
   },
   "devDependencies": {
+    "@modelcontextprotocol/inspector": "^0.4.0",
     "@types/node": "^20.11.24",
     "typescript": "^5.3.3"
   }

@@ -94,21 +94,29 @@ If you encounter permission errors:
      - `page_size` (number, default: 100, max: 100): Number of blocks to retrieve.
    - Returns: List of child blocks.
 
-4. `notion_delete_block`
+4. `notion_update_block`
+
+   - Update a block's content in Notion.
+   - Required inputs:
+     - `block_id` (string): The ID of the block to update.
+     - `content` (object): The new content for the block. Format depends on block type.
+   - Returns: Updated block information.
+
+5. `notion_delete_block`
 
    - Delete a specific block.
    - Required inputs:
      - `block_id` (string): The ID of the block to delete.
    - Returns: Confirmation of the deletion.
 
-5. `notion_retrieve_page`
+6. `notion_retrieve_page`
 
    - Retrieve information about a specific page.
    - Required inputs:
      - `page_id` (string): The ID of the page to retrieve.
    - Returns: Detailed information about the page.
 
-6. `notion_update_page_properties`
+7. `notion_update_page_properties`
 
    - Update properties of a page.
    - Required inputs:
@@ -116,7 +124,7 @@ If you encounter permission errors:
      - `properties` (object): Properties to update.
    - Returns: Information about the updated page.
 
-7. `notion_create_database`
+8. `notion_create_database`
 
    - Create a new database.
    - Required inputs:
@@ -125,7 +133,7 @@ If you encounter permission errors:
      - `properties` (object): Property schema of the database.
    - Returns: Information about the created database.
 
-8. `notion_query_database`
+9. `notion_query_database`
 
    - Query a database.
    - Required inputs:
@@ -137,14 +145,14 @@ If you encounter permission errors:
      - `page_size` (number, default: 100, max: 100): Number of results to retrieve.
    - Returns: List of results from the query.
 
-9. `notion_retrieve_database`
+10. `notion_retrieve_database`
 
    - Retrieve information about a specific database.
    - Required inputs:
      - `database_id` (string): The ID of the database to retrieve.
    - Returns: Detailed information about the database.
 
-10. `notion_update_database`
+11. `notion_update_database`
 
     - Update information about a database.
     - Required inputs:
@@ -155,7 +163,7 @@ If you encounter permission errors:
       - `properties` (object): Updated property schema.
     - Returns: Information about the updated database.
 
-11. `notion_create_database_item`
+12. `notion_create_database_item`
 
     - Create a new item in a Notion database.
     - Required inputs:
@@ -163,7 +171,7 @@ If you encounter permission errors:
       - `properties` (object): The properties of the new item. These should match the database schema.
     - Returns: Information about the newly created item.
 
-12. `notion_search`
+13. `notion_search`
 
     - Search pages or databases by title.
     - Optional inputs:
@@ -174,7 +182,7 @@ If you encounter permission errors:
       - `page_size` (number, default: 100, max: 100): Number of results to retrieve.
     - Returns: List of matching pages or databases.
 
-13. `notion_list_all_users`
+14. `notion_list_all_users`
 
     - List all users in the Notion workspace.
     - Note: This function requires upgrading to the Notion Enterprise plan and using an Organization API key to avoid permission errors.
@@ -183,7 +191,7 @@ If you encounter permission errors:
       - page_size (number, max: 100): Number of users to retrieve.
     - Returns: A paginated list of all users in the workspace.
 
-14. `notion_retrieve_user`
+15. `notion_retrieve_user`
 
     - Retrieve a specific user by user_id in Notion.
     - Note: This function requires upgrading to the Notion Enterprise plan and using an Organization API key to avoid permission errors.
@@ -191,12 +199,12 @@ If you encounter permission errors:
       - user_id (string): The ID of the user to retrieve.
     - Returns: Detailed information about the specified user.
 
-15. `notion_retrieve_bot_user`
+16. `notion_retrieve_bot_user`
 
     - Retrieve the bot user associated with the current token in Notion.
     - Returns: Information about the bot user, including details of the person who authorized the integration.
 
-16. `notion_create_comment`
+17. `notion_create_comment`
 
     - Create a comment in Notion.
     - Requires the integration to have 'insert comment' capabilities.
@@ -208,7 +216,7 @@ If you encounter permission errors:
       - `discussion_id` (string): An existing discussion thread ID.
     - Returns: Information about the created comment.
 
-17. `notion_retrieve_comments`
+18. `notion_retrieve_comments`
     - Retrieve a list of unresolved comments from a Notion page or block.
     - Requires the integration to have 'read comment' capabilities.
     - Required inputs:

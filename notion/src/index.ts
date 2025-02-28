@@ -25,6 +25,11 @@ interface RetrieveBlockChildrenArgs {
   page_size?: number;
 }
 
+interface UpdateBlockArgs {
+  block_id: string;
+  content: any;
+}
+
 interface DeleteBlockArgs {
   block_id: string;
 }
@@ -454,6 +459,26 @@ const retrieveBlockChildrenTool: Tool = {
   },
 };
 
+const updateBlockTool: Tool = {
+  name: "notion_update_block",
+  description: "Update a block's content in Notion",
+  inputSchema: {
+    type: "object",
+    properties: {
+      block_id: {
+        type: "string",
+        description:
+          "The ID of the block to update." + commonIdDescription,
+      },
+      content: {
+        type: "object",
+        description: "The new content for the block. Format depends on block type.",
+      },
+    },
+    required: ["block_id", "content"],
+  },
+};
+
 const deleteBlockTool: Tool = {
   name: "notion_delete_block",
   description: "Delete a block in Notion",
@@ -854,6 +879,16 @@ class NotionClientWrapper {
     return response.json();
   }
 
+  async updateBlock(block_id: string, content: any): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/blocks/${block_id}`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify(content),
+    });
+
+    return response.json();
+  }
+
   async deleteBlock(block_id: string): Promise<any> {
     const response = await fetch(`${this.baseUrl}/blocks/${block_id}`, {
       method: "DELETE",
@@ -1145,6 +1180,17 @@ async function main() {
             };
           }
 
+          case "notion_update_block": {
+            const args = request.params.arguments as unknown as UpdateBlockArgs;
+            if (!args.block_id || !args.content) {
+              throw new Error("Missing required arguments: block_id and content");
+            }
+            const response = await notionClient.updateBlock(args.block_id, args.content);
+            return {
+              content: [{ type: "text", text: JSON.stringify(response) }],
+            };
+          }
+
           case "notion_delete_block": {
             const args = request.params.arguments as unknown as DeleteBlockArgs;
             if (!args.block_id) {
@@ -1360,6 +1406,7 @@ async function main() {
         appendBlockChildrenTool,
         retrieveBlockTool,
         retrieveBlockChildrenTool,
+        updateBlockTool,
         deleteBlockTool,
         retrievePageTool,
         updatePagePropertiesTool,
